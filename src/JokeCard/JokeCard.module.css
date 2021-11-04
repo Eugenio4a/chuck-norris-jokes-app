@@ -1,0 +1,18 @@
+.jokeCard {
+  background-color: #f5f5f5;
+  width: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  margin: 20px auto;
+  padding: 20px;
+}
+.jokeCardFavoriteImg {
+  text-align: end;
+}
+.jokeCardJoke {
+  display: flex;
+}
+.jokeCardFooter {
+  display: flex;
+  justify-content: space-between;
+}
