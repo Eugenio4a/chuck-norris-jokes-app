@@ -4,9 +4,8 @@ import likeImg from "../images/Vector.png";
 import textImg from "../images/Group 1.png";
 import styles from "../JokeCard/JokeCard.module.css";
 
-export default function JokeCard() {
-  const randomJoke = useSelector((state) => state.randomJoke);
-
+export default function JokeCard({ randomJoke, searchJoke }) {
+  console.log(searchJoke);
   if (randomJoke.id === undefined) {
     return <div></div>;
   }

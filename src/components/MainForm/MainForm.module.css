@@ -3,6 +3,10 @@
   flex-direction: column;
   width: 400px;
 }
+.categoriesBtns {
+  padding: 5px;
+  width: 20%;
+}
 
 .getJokeBtn {
   width: 130px;

@@ -1,7 +1,14 @@
 import { React, useEffect } from "react";
 import styles from "../MainForm/MainForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-
+import {
+  activeRadio,
+  getRandomJoke,
+  getCategory,
+  chooseCategory,
+  searchJoke,
+  inputSearchValue,
+} from "../../store";
 export default function MailForm() {
   const wholeState = useSelector((state) => state);
 
@@ -11,14 +18,14 @@ export default function MailForm() {
     fetch("https://api.chucknorris.io/jokes/categories")
       .then((response) => response.json())
       .then((categories) => {
-        dispatch({ type: "getCategory", payload: categories });
+        dispatch(getCategory(categories));
       });
   }, [dispatch]);
   function getJokeBtn() {
     if (wholeState.activeRadio === "random") {
       fetch("https://api.chucknorris.io/jokes/random")
         .then((response) => response.json())
-        .then((joke) => dispatch({ type: "getRandomJoke", payload: joke }));
+        .then((joke) => dispatch(getRandomJoke(joke)));
     }
     if (wholeState.activeRadio === "categories") {
       if (wholeState.availableCategories.includes(wholeState.chosenCategory)) {
@@ -26,8 +33,19 @@ export default function MailForm() {
           `https://api.chucknorris.io/jokes/random?category=${wholeState.chosenCategory}`
         )
           .then((response) => response.json())
-          .then((joke) => dispatch({ type: "getRandomJoke", payload: joke }));
+          .then((joke) => dispatch(getRandomJoke(joke)));
       }
+    }
+    if (wholeState.activeRadio === "search") {
+      fetch(
+        `https://api.chucknorris.io/jokes/search?query=${wholeState.inputSearchValue}`
+      )
+        .then((response) => response.json())
+        .then((joke) => {
+          joke === undefined
+            ? dispatch(searchJoke(joke))
+            : dispatch(searchJoke(joke.result.slice(0, 10)));
+        });
     }
   }
   return (
@@ -38,9 +56,7 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="random"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "random" })
-            }
+            onChange={() => dispatch(activeRadio("random"))}
           ></input>
           Random
         </label>
@@ -49,9 +65,7 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="categories"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "categories" })
-            }
+            onChange={() => dispatch(activeRadio("categories"))}
           ></input>
           From categories
         </label>
@@ -61,17 +75,9 @@ export default function MailForm() {
               <input
                 key={category}
                 type="button"
-                style={{
-                  padding: "5px",
-                  width: "20%",
-                }}
+                className={styles.categoriesBtns}
                 value={category}
-                onClick={() =>
-                  dispatch({
-                    type: "chooseCategory",
-                    payload: category,
-                  })
-                }
+                onClick={() => dispatch(chooseCategory(category))}
               ></input>
             );
           })}
@@ -81,13 +87,17 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="search"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "search" })
-            }
+            onChange={() => dispatch(activeRadio("search"))}
           ></input>
           Search
           <br />
-          <input type="text" placeholder="Free text search..."></input>
+          <input
+            type="text"
+            placeholder="Free text search..."
+            onChange={(e) => {
+              dispatch(inputSearchValue(e.target.value));
+            }}
+          ></input>
         </label>
         <button
           className={styles.getJokeBtn}

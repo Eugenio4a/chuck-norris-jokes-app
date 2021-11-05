@@ -1,17 +1,27 @@
-import MainForm from "./MainForm/MainForm";
-import JokeCard from "./JokeCard/JokeCard";
-
+import MainForm from "./components/MainForm/MainForm";
+import JokeCard from "./components/JokeCard/JokeCard";
+import { useSelector } from "react-redux";
+import styles from "./App.module.css";
 function App() {
+  const activeRadio = useSelector((state) => state.activeRadio);
+  const searchJoke = useSelector((state) => state.searchJoke);
+  const randomJoke = useSelector((state) => state.randomJoke);
   return (
     <>
-      <div style={{ width: "100%", display: "flex", height: "100vh" }}>
-        <div style={{ width: "70%" }}>
+      <div className={styles.bodyApp}>
+        <div className={styles.mainJokes}>
           <h2>Hey!</h2>
           <p>Let’s try to find a joke for you:</p>
           <MainForm />
-          <JokeCard />
+          {activeRadio !== "search" ? (
+            <JokeCard randomJoke={randomJoke} />
+          ) : (
+            searchJoke.map((joke) => (
+              <JokeCard key={joke.id} searchJoke={joke} />
+            ))
+          )}
         </div>
-        <div style={{ width: "30%", background: "#f5f5f5" }}>Favorites:</div>
+        <div className={styles.favoriteJokes}>Favorites:</div>
       </div>
     </>
   );
