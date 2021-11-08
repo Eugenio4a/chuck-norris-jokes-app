@@ -6,6 +6,7 @@ const GET_CATEGORY = "getCategory";
 const CHOOSE_CATEGORY = "chooseCategory";
 const SEARCH_JOKE = "searchJoke";
 const INPUT_SEARCH_VALUE = "inputSearchValue";
+const FAVORITE_JOKE = "favoriteJokes";
 function reducer(
   state = {
     activeRadio: [],
@@ -14,6 +15,7 @@ function reducer(
     chosenCategory: [],
     inputSearchValue: [],
     searchJoke: [],
+    favoriteJokes: [],
   },
   action
 ) {
@@ -35,6 +37,12 @@ function reducer(
     }
     case SEARCH_JOKE: {
       return { ...state, searchJoke: action.payload };
+    }
+    case FAVORITE_JOKE: {
+      return {
+        ...state,
+        favoriteJokes: [...state.favoriteJokes, action.payload],
+      };
     }
 
     default:
@@ -59,6 +67,9 @@ export function searchJoke(payload) {
 }
 export function inputSearchValue(payload) {
   return { type: INPUT_SEARCH_VALUE, payload };
+}
+export function favoriteJokes(payload) {
+  return { type: FAVORITE_JOKE, payload };
 }
 
 const store = createStore(reducer);

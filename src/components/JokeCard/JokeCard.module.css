@@ -11,6 +11,11 @@
 }
 .jokeCardJoke {
   display: flex;
+
+  align-items: center;
+}
+.textImage {
+  padding: 0px 10px;
 }
 .jokeCardFooter {
   display: flex;

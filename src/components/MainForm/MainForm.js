@@ -42,10 +42,9 @@ export default function MailForm() {
       )
         .then((response) => response.json())
         .then((joke) => {
-          joke === undefined
-            ? dispatch(searchJoke(joke))
-            : dispatch(searchJoke(joke.result.slice(0, 10)));
-        });
+          dispatch(searchJoke(joke.result.slice(0, 10)));
+        })
+        .catch((err) => console.log(err));
     }
   }
   return (
@@ -69,19 +68,24 @@ export default function MailForm() {
           ></input>
           From categories
         </label>
-        <div style={{ margin: "10px 0" }}>
+        <div className={styles.btnsCategoryBox}>
           {wholeState.availableCategories.map((category) => {
             return (
               <input
                 key={category}
                 type="button"
-                className={styles.categoriesBtns}
+                className={
+                  wholeState.activeRadio === "categories"
+                    ? styles.categoriesBtns
+                    : styles.categoriesBtnsNone
+                }
                 value={category}
                 onClick={() => dispatch(chooseCategory(category))}
               ></input>
             );
           })}
         </div>
+
         <label htmlFor="search">
           <input
             type="radio"

@@ -3,9 +3,18 @@
   flex-direction: column;
   width: 400px;
 }
+
+/* .btnsCategoryBox {
+  max-height: 30px;
+  overflow: hidden;
+} */
 .categoriesBtns {
+  display: inline-block;
   padding: 5px;
   width: 20%;
+}
+.categoriesBtnsNone {
+  display: none;
 }
 
 .getJokeBtn {
