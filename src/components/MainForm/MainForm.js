@@ -21,6 +21,7 @@ export default function MailForm() {
         dispatch(getCategory(categories));
       });
   }, [dispatch]);
+
   function getJokeBtn() {
     if (wholeState.activeRadio === "random") {
       fetch("https://api.chucknorris.io/jokes/random")

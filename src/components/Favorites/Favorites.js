@@ -1,6 +1,6 @@
 import React from "react";
 import JokeCard from "../JokeCard/JokeCard";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Favorites() {
   const jokesFavorite = useSelector((state) => state.favoriteJokes);

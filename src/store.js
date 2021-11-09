@@ -41,7 +41,7 @@ function reducer(
     case FAVORITE_JOKE: {
       return {
         ...state,
-        favoriteJokes: [...state.favoriteJokes, action.payload],
+        favoriteJokes: action.payload,
       };
     }
 
