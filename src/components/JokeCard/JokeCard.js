@@ -35,7 +35,9 @@ export default function JokeCard({ joke }) {
   }
   return (
     <>
-      <section className={styles.jokeCard}>
+      <section
+        className={!isFavorite ? styles.jokeCard : styles.jokeCardFavorite}
+      >
         <div className={styles.jokeCardFavoriteImg}>
           <img
             onClick={() => {
@@ -49,18 +51,34 @@ export default function JokeCard({ joke }) {
           <div className={styles.textImage}>
             <img src={textImg} alt="text of joke"></img>
           </div>
-          <div>
-            <span>ID:{joke.id}</span>
-            <p>{joke.value}</p>
+          <div className={styles.jokeCardText}>
+            <span className={styles.jokeCardId}>
+              ID:
+              <a
+                href={`https://api.chucknorris.io/jokes/${joke.id}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {joke.id}
+              </a>
+            </span>
+            <p className={styles.jokeCardTextJoke}>{joke.value}</p>
+            <div className={styles.jokeCardFooter}>
+              <span className={styles.jokeCardLast_Update}>
+                Last update: {getDate() + ` hours ago`}
+              </span>
+
+              <span
+                className={
+                  joke.categories !== []
+                    ? styles.jokeCardCategoriesNone
+                    : styles.jokeCardCategories
+                }
+              >
+                {joke.categories[0]}
+              </span>
+            </div>
           </div>
-        </div>
-        <div className={styles.jokeCardFooter}>
-          <span>Last update: {getDate() + ` hours ago`}</span>
-          {joke.categories === [] ? (
-            <div></div>
-          ) : (
-            <div>{joke.categories[0]}</div>
-          )}
         </div>
       </section>
     </>

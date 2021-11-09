@@ -99,6 +99,11 @@ export default function MailForm() {
           <input
             type="text"
             placeholder="Free text search..."
+            className={
+              wholeState.activeRadio === "search"
+                ? styles.categoriesSearchInput
+                : styles.categoriesSearchInputNone
+            }
             onChange={(e) => {
               dispatch(inputSearchValue(e.target.value));
             }}

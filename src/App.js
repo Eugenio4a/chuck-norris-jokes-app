@@ -12,8 +12,8 @@ function App() {
     <>
       <div className={styles.bodyApp}>
         <div className={styles.mainJokes}>
-          <h2>Hey!</h2>
-          <p>Let’s try to find a joke for you:</p>
+          <h2 className={styles.title}>Hey!</h2>
+          <p className={styles.title_desr}>Let’s try to find a joke for you:</p>
           <MainForm />
           {activeRadio !== "search" ? (
             <JokeCard joke={randomJoke} />
@@ -21,8 +21,8 @@ function App() {
             searchJoke.map((joke) => <JokeCard key={joke.id} joke={joke} />)
           )}
         </div>
-        <div className={styles.favoriteJokes}>
-          Favorites:
+        <div id="favorite" className={styles.favoriteJokes}>
+          <p className={styles.appFavoritesTitle}>Favorites</p>
           <Favorites />
         </div>
       </div>
