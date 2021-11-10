@@ -1,17 +1,17 @@
-import { React } from "react";
-import likeImg from "../images/Vector.png";
-import textImg from "../images/Group 1.png";
-import likeImgClicked from "../images/heart.png";
-import styles from "../JokeCard/JokeCard.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { favoriteJokes } from "../../store";
+import { React } from 'react';
+import likeImg from '../images/Vector.png';
+import textImg from '../images/Group 1.png';
+import likeImgClicked from '../images/heart.png';
+import styles from '../JokeCard/JokeCard.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { favoriteJokes } from '../../store';
 
-export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
+export default function JokeCard({ joke, cardStyles }) {
   const favoriteJokesArr = useSelector((state) => state.favoriteJokes);
   const dispatch = useDispatch();
 
   const isFavorite = Boolean(
-    favoriteJokesArr.find((jokes) => jokes.id === joke.id)
+    favoriteJokesArr.find((jokes) => jokes.id === joke.id),
   );
 
   function addAndDeleteFromFavorites() {
@@ -21,7 +21,7 @@ export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
     return dispatch(
       favoriteJokes([
         ...favoriteJokesArr.filter((jokes) => jokes.id !== joke.id),
-      ])
+      ]),
     );
   }
   console.log(joke.updated_at);
@@ -35,11 +35,7 @@ export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
   }
   return (
     <>
-      <section
-        className={
-          cardSize === "small" ? cardStylesFav.jokeCard : styles.jokeCard
-        }
-      >
+      <section className={cardStyles.card}>
         <div className={styles.jokeCardFavoriteImg}>
           <img
             onClick={() => {
