@@ -6,8 +6,9 @@ import styles from "../JokeCard/JokeCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { favoriteJokes } from "../../store";
 
-export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
+export default function JokeCard({ joke, cardStyles }) {
   const favoriteJokesArr = useSelector((state) => state.favoriteJokes);
+
   const dispatch = useDispatch();
 
   const isFavorite = Boolean(
@@ -33,13 +34,10 @@ export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
   if (joke.id === undefined) {
     return <div></div>;
   }
+
   return (
     <>
-      <section
-        className={
-          cardSize === "small" ? cardStylesFav.jokeCard : styles.jokeCard
-        }
-      >
+      <section className={cardStyles.jokeCard}>
         <div className={styles.jokeCardFavoriteImg}>
           <img
             onClick={() => {
@@ -50,7 +48,7 @@ export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
           ></img>
         </div>
         <div className={styles.jokeCardJoke}>
-          <div className={styles.textImage}>
+          <div className={cardStyles.textImage}>
             <img src={textImg} alt="text of joke"></img>
           </div>
           <div className={styles.jokeCardText}>
@@ -64,13 +62,21 @@ export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
                 {joke.id}
               </a>
             </span>
-            <p className={styles.jokeCardTextJoke}>{joke.value}</p>
+            <p className={cardStyles.jokeCardTextJoke}>{joke.value}</p>
             <div className={styles.jokeCardFooter}>
               <span className={styles.jokeCardLast_Update}>
                 Last update: {getDate() + ` hours ago`}
               </span>
 
-              <span>{joke.categories[0]}</span>
+              <span
+                className={
+                  joke.categories === []
+                    ? styles.jokeCardCategoryNone
+                    : styles.jokeCardCategory
+                }
+              >
+                {joke.categories[0]}
+              </span>
             </div>
           </div>
         </div>

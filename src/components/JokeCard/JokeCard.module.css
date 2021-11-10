@@ -1,5 +1,5 @@
 .jokeCard {
-  background: #ffffff;
+  background: #f8f8f8;
   width: 70%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -59,4 +59,20 @@
 }
 .jokeCardTextJoke {
   word-break: break-word;
+}
+.jokeCardCategory {
+  display: block;
+  background-color: white;
+  padding: 10px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+}
+.jokeCardCategoryNone {
+  display: none;
+  background-color: #f8f8f8;
+}
+@media screen and (max-width: 600px) {
+  .textImage {
+    display: none;
+  }
 }

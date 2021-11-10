@@ -1,8 +1,25 @@
-.bodyApp {
-  width: 100%;
+body {
+  width: 100vw;
+  height: 100vh;
+
+  padding: 0;
+  flex-direction: row;
+  margin: 0px auto;
+  background-color: black;
+}
+.headerAppJokes {
   display: flex;
-  padding: 50px;
-  min-height: 90vh;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal {
+  display: none;
+}
+.bodyApp {
+  display: flex;
+  margin: 0 20px;
+  background-color: white;
+  min-height: 100vh;
 }
 .title {
   font-size: 32px;
@@ -12,28 +29,85 @@
 }
 .mainJokes {
   width: 60%;
+  box-sizing: border-box;
+  padding: 20px 50px;
 }
 .favoriteJokes {
   width: 40%;
   background-color: #f5f5f5;
 }
-
+.humburgerBtn {
+  display: none;
+}
 .appFavoritesTitle {
   color: rgba(171, 171, 171, 1);
   font-size: 20px;
   padding: 0px 40px;
 }
-body {
-  width: 1400px;
-  margin: 0px auto;
+.blur {
+  display: none;
 }
+@media screen and (max-width: 950px) {
+  body {
+    width: 100vw;
+  }
+  .favoriteJokes {
+    display: none;
+  }
+  .bodyApp {
+    margin: 0;
+  }
+  .humburgerBtn {
+    display: block;
+  }
+  .mainJokes {
+    width: 100%;
+  }
+  .modal {
+    display: block;
+  }
+  .blur {
+    width: 100vw;
+    min-height: 100%;
+    right: 100%;
+    top: 0;
+    backdrop-filter: blur(2px);
+    position: absolute;
+    display: block;
+  }
+  .favoriteJokesModal {
+    display: block;
+    width: 60%;
+    min-height: 100%;
+    background-color: #f5f5f5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 50;
+  }
+  .humburgerBtn {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+@media screen and (max-width: 600px) {
+  .favoriteJokesModal {
+    display: block;
+    width: 100%;
+    min-height: 100%;
 
-.jokeCard {
-  background-color: #f8f8f8;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  width: 70%;
-  overflow: hidden;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 20px;
+    background-color: #f5f5f5;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .mainJokes {
+    width: 100vh;
+    overflow: auto;
+    padding: 20px;
+  }
+  .jokeCard {
+    width: 100%;
+    margin: 0;
+  }
 }

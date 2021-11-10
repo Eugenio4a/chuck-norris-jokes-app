@@ -8,7 +8,7 @@ export default function Favorites({ cardStylesFav }) {
   return (
     <div>
       {jokesFavorite.map((joke) => (
-        <JokeCard cardStylesFav={cardStylesFav} key={joke.id} joke={joke} />
+        <JokeCard cardStyles={cardStylesFav} key={joke.id} joke={joke} />
       ))}
     </div>
   );

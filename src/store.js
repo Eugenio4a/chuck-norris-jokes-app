@@ -7,6 +7,7 @@ const CHOOSE_CATEGORY = "chooseCategory";
 const SEARCH_JOKE = "searchJoke";
 const INPUT_SEARCH_VALUE = "inputSearchValue";
 const FAVORITE_JOKE = "favoriteJokes";
+
 function reducer(
   state = {
     activeRadio: [],
