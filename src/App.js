@@ -16,14 +16,14 @@ function App() {
           <p className={styles.title_desr}>Let’s try to find a joke for you:</p>
           <MainForm />
           {activeRadio !== "search" ? (
-            <JokeCard joke={randomJoke} />
+            <JokeCard cardStyles={styles} joke={randomJoke} />
           ) : (
             searchJoke.map((joke) => <JokeCard key={joke.id} joke={joke} />)
           )}
         </div>
-        <div id="favorite" className={styles.favoriteJokes}>
+        <div className={styles.favoriteJokes}>
           <p className={styles.appFavoritesTitle}>Favorites</p>
-          <Favorites />
+          <Favorites cardStylesFav={styles} />
         </div>
       </div>
     </>

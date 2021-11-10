@@ -6,7 +6,7 @@ import styles from "../JokeCard/JokeCard.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { favoriteJokes } from "../../store";
 
-export default function JokeCard({ joke }) {
+export default function JokeCard({ joke, cardStylesFav = {}, cardStyles }) {
   const favoriteJokesArr = useSelector((state) => state.favoriteJokes);
   const dispatch = useDispatch();
 
@@ -36,7 +36,9 @@ export default function JokeCard({ joke }) {
   return (
     <>
       <section
-        className={!isFavorite ? styles.jokeCard : styles.jokeCardFavorite}
+        className={
+          cardSize === "small" ? cardStylesFav.jokeCard : styles.jokeCard
+        }
       >
         <div className={styles.jokeCardFavoriteImg}>
           <img
@@ -68,15 +70,7 @@ export default function JokeCard({ joke }) {
                 Last update: {getDate() + ` hours ago`}
               </span>
 
-              <span
-                className={
-                  joke.categories !== []
-                    ? styles.jokeCardCategoriesNone
-                    : styles.jokeCardCategories
-                }
-              >
-                {joke.categories[0]}
-              </span>
+              <span>{joke.categories[0]}</span>
             </div>
           </div>
         </div>
