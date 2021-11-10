@@ -1,6 +1,6 @@
-import React from "react";
-import JokeCard from "../JokeCard/JokeCard";
-import { useSelector } from "react-redux";
+import React from 'react';
+import JokeCard from '../JokeCard/JokeCard';
+import { useSelector } from 'react-redux';
 
 export default function Favorites({ cardStylesFav }) {
   const jokesFavorite = useSelector((state) => state.favoriteJokes);
@@ -8,7 +8,7 @@ export default function Favorites({ cardStylesFav }) {
   return (
     <div>
       {jokesFavorite.map((joke) => (
-        <JokeCard cardStylesFav={cardStylesFav} key={joke.id} joke={joke} />
+        <JokeCard cardStyles={cardStylesFav} key={joke.id} joke={joke} />
       ))}
     </div>
   );
