@@ -11,6 +11,7 @@ function App() {
   const activeRadio = useSelector((state) => state.activeRadio);
   const searchJoke = useSelector((state) => state.searchJoke);
   const randomJoke = useSelector((state) => state.randomJoke);
+  const isFavorite = useSelector((state) => state.favoriteJokes);
   const [menuActive, setMenuActive] = useState(true);
   return (
     <>
@@ -19,7 +20,11 @@ function App() {
           <div className={styles.headerAppJokes}>
             <h2 className={styles.title}>Hey!</h2>
             <div
-              className={styles.humburgerBtn}
+              className={
+                !isFavorite.length
+                  ? styles.humburgerBtn
+                  : styles.humburgerBtnWithSmth
+              }
               onClick={() => setMenuActive(!menuActive)}
             >
               Favorite
