@@ -1,7 +1,6 @@
 body {
   width: 100vw;
   height: 100vh;
-
   padding: 0;
   flex-direction: row;
   margin: 0px auto;
@@ -17,7 +16,7 @@ body {
 }
 .bodyApp {
   display: flex;
-  margin: 0 20px;
+  margin: 0;
   background-color: white;
   min-height: 100vh;
 }
@@ -45,6 +44,9 @@ body {
   padding: 0px 40px;
 }
 .blur {
+  display: none;
+}
+.humburgerBtnWithSmth {
   display: none;
 }
 @media screen and (max-width: 950px) {
@@ -91,6 +93,7 @@ body {
     color: #ababab;
   }
   .humburgerBtnWithSmth {
+    display: block;
     font-size: 20px;
     font-weight: bold;
     color: #ababab;
@@ -103,7 +106,7 @@ body {
     right: -5px;
     width: 5px;
     height: 5px;
-    background-color: rgb(233, 135, 135);
+    background-color: rgb(255, 0, 0);
     border-radius: 50px;
   }
 }

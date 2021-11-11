@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import MainForm from "./components/MainForm/MainForm";
-import JokeCard from "./components/JokeCard/JokeCard";
-import Favorites from "./components/Favorites/Favorites";
+import MainForm from "./components/MainForm";
+import JokeCard from "./components/JokeCard";
+import Favorites from "./components/Favorites";
 import { useSelector } from "react-redux";
 import styles from "./App.module.css";
 import cardStyles from "./components/JokeCard/JokeCard.module.css";
@@ -13,6 +13,19 @@ function App() {
   const randomJoke = useSelector((state) => state.randomJoke);
   const isFavorite = useSelector((state) => state.favoriteJokes);
   const [menuActive, setMenuActive] = useState(true);
+  function renderCorrectComponent() {
+    return (
+      <>
+        {activeRadio !== "search" ? (
+          <JokeCard cardStyles={cardStyles} joke={randomJoke} />
+        ) : (
+          searchJoke.map((joke) => (
+            <JokeCard cardStyles={cardStyles} key={joke.id} joke={joke} />
+          ))
+        )}
+      </>
+    );
+  }
   return (
     <>
       <div className={styles.bodyApp}>
@@ -32,13 +45,7 @@ function App() {
           </div>
           <p className={styles.title_desr}>Let’s try to find a joke for you:</p>
           <MainForm />
-          {activeRadio !== "search" ? (
-            <JokeCard cardStyles={cardStyles} joke={randomJoke} />
-          ) : (
-            searchJoke.map((joke) => (
-              <JokeCard cardStyles={cardStyles} key={joke.id} joke={joke} />
-            ))
-          )}
+          {renderCorrectComponent()}
         </div>
         <div
           onClick={(e) => e.stopPropagation()}

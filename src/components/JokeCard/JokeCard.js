@@ -17,13 +17,23 @@ export default function JokeCard({ joke, cardStyles }) {
 
   function addAndDeleteFromFavorites() {
     if (!isFavorite) {
-      return dispatch(favoriteJokes([...favoriteJokesArr, joke]));
+      let favoriteAdded = [...favoriteJokesArr, joke];
+      localStorage.setItem("favJoke", JSON.stringify(favoriteAdded));
+      return dispatch(favoriteJokes(favoriteAdded));
     }
-    return dispatch(
-      favoriteJokes([
-        ...favoriteJokesArr.filter((jokes) => jokes.id !== joke.id),
-      ])
+
+    let favoriteAdded = favoriteJokesArr.filter(
+      (jokes) => jokes.id !== joke.id
     );
+
+    localStorage.setItem("favJokes", JSON.stringify(favoriteAdded));
+    dispatch(favoriteJokes(favoriteAdded));
+
+    //   dispatch(
+    //   favoriteJokes([І
+    //     ...favoriteJokesArr.filter((jokes) => jokes.id !== joke.id),
+    //   ])
+    // )
   }
   console.log(joke.updated_at);
   function getDate() {
@@ -34,7 +44,6 @@ export default function JokeCard({ joke, cardStyles }) {
   if (joke.id === undefined) {
     return <div></div>;
   }
-
   return (
     <>
       <section className={cardStyles.jokeCard}>
