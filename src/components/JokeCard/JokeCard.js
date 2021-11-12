@@ -26,7 +26,7 @@ export default function JokeCard({ joke, cardStyles }) {
       (jokes) => jokes.id !== joke.id
     );
 
-    localStorage.setItem("favJokes", JSON.stringify(favoriteAdded));
+    localStorage.setItem("favJoke", JSON.stringify(favoriteAdded));
     dispatch(favoriteJokes(favoriteAdded));
 
     //   dispatch(
@@ -79,7 +79,7 @@ export default function JokeCard({ joke, cardStyles }) {
 
               <span
                 className={
-                  joke.categories === []
+                  joke.categories.length === 0
                     ? styles.jokeCardCategoryNone
                     : styles.jokeCardCategory
                 }

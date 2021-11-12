@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { favoriteJokes } from "./store";
 import MainForm from "./components/MainForm";
 import JokeCard from "./components/JokeCard";
 import Favorites from "./components/Favorites";
-import { useSelector } from "react-redux";
 import styles from "./App.module.css";
 import cardStyles from "./components/JokeCard/JokeCard.module.css";
 import cardStylesFav from "./components/Favorites/Favorites.module.css";
@@ -13,6 +14,17 @@ function App() {
   const randomJoke = useSelector((state) => state.randomJoke);
   const isFavorite = useSelector((state) => state.favoriteJokes);
   const [menuActive, setMenuActive] = useState(true);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const favoritesFromLocalStorage = JSON.parse(
+      localStorage.getItem("favJoke")
+    );
+    if (favoritesFromLocalStorage) {
+      dispatch(favoriteJokes(favoritesFromLocalStorage));
+    }
+  }, [dispatch]);
+
   function renderCorrectComponent() {
     return (
       <>
@@ -53,12 +65,18 @@ function App() {
             menuActive ? styles.favoriteJokes : styles.favoriteJokesModal
           }
         >
-          <p
-            onClick={() => setMenuActive(!menuActive)}
-            className={styles.appFavoritesTitle}
-          >
-            Favorites
-          </p>
+          <div className={styles.favHeaderNav}>
+            <p className={styles.appFavoritesTitle}>Favorites</p>
+            <img
+              className={styles.favHeaderNavImg}
+              onClick={() => setMenuActive(!menuActive)}
+              src="https://img.icons8.com/material/24/000000/return.png"
+              alt="goBack"
+            />
+          </div>
+          {isFavorite.length === 0 ? (
+            <div className={styles.emptyFav}>no jokes added... </div>
+          ) : null}
           <div
             className={styles.blur}
             onClick={() => {

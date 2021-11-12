@@ -11,6 +11,9 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+.favHeaderNavImg {
+  display: none;
+}
 .modal {
   display: none;
 }
@@ -25,6 +28,12 @@ body {
 }
 .title_desr {
   font-size: 24px;
+}
+.emptyFav {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(171, 171, 171, 0.5);
+  padding-top: 40px;
 }
 .mainJokes {
   width: 60%;
@@ -43,6 +52,11 @@ body {
   font-size: 20px;
   padding: 0px 40px;
 }
+.favHeaderNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .blur {
   display: none;
 }
@@ -50,6 +64,11 @@ body {
   display: none;
 }
 @media screen and (max-width: 950px) {
+  .favHeaderNavImg {
+    display: block;
+    padding: 20px;
+    cursor: pointer;
+  }
   body {
     width: 100vw;
   }
@@ -91,6 +110,7 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #ababab;
+    cursor: pointer;
   }
   .humburgerBtnWithSmth {
     display: block;
