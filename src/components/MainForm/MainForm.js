@@ -1,7 +1,14 @@
 import { React, useEffect } from "react";
 import styles from "../MainForm/MainForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-
+import {
+  activeRadio,
+  getRandomJoke,
+  getCategory,
+  chooseCategory,
+  searchJoke,
+  inputSearchValue,
+} from "../../store";
 export default function MailForm() {
   const wholeState = useSelector((state) => state);
 
@@ -11,14 +18,15 @@ export default function MailForm() {
     fetch("https://api.chucknorris.io/jokes/categories")
       .then((response) => response.json())
       .then((categories) => {
-        dispatch({ type: "getCategory", payload: categories });
+        dispatch(getCategory(categories));
       });
   }, [dispatch]);
+
   function getJokeBtn() {
     if (wholeState.activeRadio === "random") {
       fetch("https://api.chucknorris.io/jokes/random")
         .then((response) => response.json())
-        .then((joke) => dispatch({ type: "getRandomJoke", payload: joke }));
+        .then((joke) => dispatch(getRandomJoke(joke)));
     }
     if (wholeState.activeRadio === "categories") {
       if (wholeState.availableCategories.includes(wholeState.chosenCategory)) {
@@ -26,8 +34,18 @@ export default function MailForm() {
           `https://api.chucknorris.io/jokes/random?category=${wholeState.chosenCategory}`
         )
           .then((response) => response.json())
-          .then((joke) => dispatch({ type: "getRandomJoke", payload: joke }));
+          .then((joke) => dispatch(getRandomJoke(joke)));
       }
+    }
+    if (wholeState.activeRadio === "search") {
+      fetch(
+        `https://api.chucknorris.io/jokes/search?query=${wholeState.inputSearchValue}`
+      )
+        .then((response) => response.json())
+        .then((joke) => {
+          dispatch(searchJoke(joke.result.slice(0, 10)));
+        })
+        .catch((err) => console.log(err));
     }
   }
   return (
@@ -38,9 +56,7 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="random"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "random" })
-            }
+            onChange={() => dispatch(activeRadio("random"))}
           ></input>
           Random
         </label>
@@ -49,45 +65,49 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="categories"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "categories" })
-            }
+            onChange={() => dispatch(activeRadio("categories"))}
           ></input>
           From categories
         </label>
-        <div style={{ margin: "10px 0" }}>
+        <div className={styles.btnsCategoryBox}>
           {wholeState.availableCategories.map((category) => {
             return (
               <input
                 key={category}
                 type="button"
-                style={{
-                  padding: "5px",
-                  width: "20%",
-                }}
-                value={category}
-                onClick={() =>
-                  dispatch({
-                    type: "chooseCategory",
-                    payload: category,
-                  })
+                className={
+                  wholeState.activeRadio === "categories"
+                    ? styles.categoriesBtns
+                    : styles.categoriesBtnsNone
                 }
+                value={category}
+                onClick={() => dispatch(chooseCategory(category))}
               ></input>
             );
           })}
         </div>
+
         <label htmlFor="search">
           <input
             type="radio"
             name="choosejoke"
             id="search"
-            onChange={() =>
-              dispatch({ type: "activeRadio", payload: "search" })
-            }
+            onChange={() => dispatch(activeRadio("search"))}
           ></input>
           Search
           <br />
-          <input type="text" placeholder="Free text search..."></input>
+          <input
+            type="text"
+            placeholder="Free text search..."
+            className={
+              wholeState.activeRadio === "search"
+                ? styles.categoriesSearchInput
+                : styles.categoriesSearchInputNone
+            }
+            onChange={(e) => {
+              dispatch(inputSearchValue(e.target.value));
+            }}
+          ></input>
         </label>
         <button
           className={styles.getJokeBtn}
