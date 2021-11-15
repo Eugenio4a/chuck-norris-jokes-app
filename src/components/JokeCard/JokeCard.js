@@ -17,25 +17,17 @@ export default function JokeCard({ joke, cardStyles }) {
 
   function addAndDeleteFromFavorites() {
     if (!isFavorite) {
-      let favoriteAdded = [...favoriteJokesArr, joke];
-      localStorage.setItem("favJoke", JSON.stringify(favoriteAdded));
-      return dispatch(favoriteJokes(favoriteAdded));
+      let newFavorite = [...favoriteJokesArr, joke];
+      localStorage.setItem("favJoke", JSON.stringify(newFavorite));
+      return dispatch(favoriteJokes(newFavorite));
     }
 
-    let favoriteAdded = favoriteJokesArr.filter(
-      (jokes) => jokes.id !== joke.id
-    );
+    let newFavorite = favoriteJokesArr.filter((jokes) => jokes.id !== joke.id);
 
-    localStorage.setItem("favJoke", JSON.stringify(favoriteAdded));
-    dispatch(favoriteJokes(favoriteAdded));
-
-    //   dispatch(
-    //   favoriteJokes([І
-    //     ...favoriteJokesArr.filter((jokes) => jokes.id !== joke.id),
-    //   ])
-    // )
+    localStorage.setItem("favJoke", JSON.stringify(newFavorite));
+    dispatch(favoriteJokes(newFavorite));
   }
-  console.log(joke.updated_at);
+
   function getDate() {
     let hrs = Math.floor(Date.parse(joke.updated_at) / 1000 / 3600);
     let hrsToday = Math.floor(Date.now() / 1000 / 3600);

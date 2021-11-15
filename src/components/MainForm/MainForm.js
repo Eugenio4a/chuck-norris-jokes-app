@@ -1,53 +1,13 @@
-import { React, useEffect } from "react";
-import styles from "../MainForm/MainForm.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import {
+import React from "react";
+import styles from "../Main/Main.module.css";
+import { useDispatch } from "react-redux";
+import { activeRadios, chooseCategory, inputSearchValues } from "../../store";
+export default function MainForm({
   activeRadio,
-  getRandomJoke,
-  getCategory,
-  chooseCategory,
-  searchJoke,
-  inputSearchValue,
-} from "../../store";
-export default function MailForm() {
-  const wholeState = useSelector((state) => state);
-
+  availableCategories,
+  getJokeBtn,
+}) {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    fetch("https://api.chucknorris.io/jokes/categories")
-      .then((response) => response.json())
-      .then((categories) => {
-        dispatch(getCategory(categories));
-      });
-  }, [dispatch]);
-
-  function getJokeBtn() {
-    if (wholeState.activeRadio === "random") {
-      fetch("https://api.chucknorris.io/jokes/random")
-        .then((response) => response.json())
-        .then((joke) => dispatch(getRandomJoke(joke)));
-    }
-    if (wholeState.activeRadio === "categories") {
-      if (wholeState.availableCategories.includes(wholeState.chosenCategory)) {
-        fetch(
-          `https://api.chucknorris.io/jokes/random?category=${wholeState.chosenCategory}`
-        )
-          .then((response) => response.json())
-          .then((joke) => dispatch(getRandomJoke(joke)));
-      }
-    }
-    if (wholeState.activeRadio === "search") {
-      fetch(
-        `https://api.chucknorris.io/jokes/search?query=${wholeState.inputSearchValue}`
-      )
-        .then((response) => response.json())
-        .then((joke) => {
-          dispatch(searchJoke(joke.result.slice(0, 10)));
-        })
-        .catch((err) => console.log(err));
-    }
-  }
   return (
     <div>
       <form className={styles.form}>
@@ -56,7 +16,7 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="random"
-            onChange={() => dispatch(activeRadio("random"))}
+            onChange={() => dispatch(activeRadios("random"))}
           ></input>
           Random
         </label>
@@ -65,18 +25,18 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="categories"
-            onChange={() => dispatch(activeRadio("categories"))}
+            onChange={() => dispatch(activeRadios("categories"))}
           ></input>
           From categories
         </label>
         <div className={styles.btnsCategoryBox}>
-          {wholeState.availableCategories.map((category) => {
+          {availableCategories.map((category) => {
             return (
               <input
                 key={category}
                 type="button"
                 className={
-                  wholeState.activeRadio === "categories"
+                  activeRadio === "categories"
                     ? styles.categoriesBtns
                     : styles.categoriesBtnsNone
                 }
@@ -92,7 +52,7 @@ export default function MailForm() {
             type="radio"
             name="choosejoke"
             id="search"
-            onChange={() => dispatch(activeRadio("search"))}
+            onChange={() => dispatch(activeRadios("search"))}
           ></input>
           Search
           <br />
@@ -100,12 +60,12 @@ export default function MailForm() {
             type="text"
             placeholder="Free text search..."
             className={
-              wholeState.activeRadio === "search"
+              activeRadio === "search"
                 ? styles.categoriesSearchInput
                 : styles.categoriesSearchInputNone
             }
             onChange={(e) => {
-              dispatch(inputSearchValue(e.target.value));
+              dispatch(inputSearchValues(e.target.value));
             }}
           ></input>
         </label>
