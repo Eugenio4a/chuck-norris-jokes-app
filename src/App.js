@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { favoriteJokes } from "./store";
-import Main from "./components/Main";
+import MainForm from "./components/MainForm";
 import JokeCard from "./components/JokeCard";
 import Favorites from "./components/Favorites";
 import styles from "./App.module.css";
@@ -12,7 +12,7 @@ function App() {
   const activeRadio = useSelector((state) => state.activeRadio);
   const searchJoke = useSelector((state) => state.searchJoke);
   const randomJoke = useSelector((state) => state.randomJoke);
-  const isFavorites = !!useSelector((state) => state.favoriteJokes.length);
+  const isFavorite = useSelector((state) => state.favoriteJokes);
   const [menuActive, setMenuActive] = useState(true);
   const dispatch = useDispatch();
 
@@ -46,7 +46,9 @@ function App() {
             <h2 className={styles.title}>Hey!</h2>
             <div
               className={
-                !isFavorites ? styles.humburgerBtn : styles.humburgerBtnWithSmth
+                !isFavorite.length
+                  ? styles.humburgerBtn
+                  : styles.humburgerBtnWithSmth
               }
               onClick={() => setMenuActive(!menuActive)}
             >
@@ -54,10 +56,11 @@ function App() {
             </div>
           </div>
           <p className={styles.title_desr}>Let’s try to find a joke for you:</p>
-          <Main />
+          <MainForm />
           {renderCorrectComponent()}
         </div>
         <div
+          onClick={(e) => e.stopPropagation()}
           className={
             menuActive ? styles.favoriteJokes : styles.favoriteJokesModal
           }
@@ -71,7 +74,7 @@ function App() {
               alt="goBack"
             />
           </div>
-          {!isFavorites ? (
+          {isFavorite.length === 0 ? (
             <div className={styles.emptyFav}>no jokes added... </div>
           ) : null}
           <div

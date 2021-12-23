@@ -51,7 +51,7 @@ function reducer(
   }
 }
 
-export function activeRadios(payload) {
+export function activeRadio(payload) {
   return { type: ACTIVE_RADIO, payload };
 }
 export function getRandomJoke(payload) {
@@ -66,7 +66,7 @@ export function chooseCategory(payload) {
 export function searchJoke(payload) {
   return { type: SEARCH_JOKE, payload };
 }
-export function inputSearchValues(payload) {
+export function inputSearchValue(payload) {
   return { type: INPUT_SEARCH_VALUE, payload };
 }
 export function favoriteJokes(payload) {
