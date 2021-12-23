@@ -73,7 +73,7 @@ export default function JokeCard({ joke, cardStyles }) {
                 className={
                   joke.categories.length === 0
                     ? styles.jokeCardCategoryNone
-                    : styles.jokeCardCategory
+                    : cardStyles.jokeCardCategory
                 }
               >
                 {joke.categories[0]}
